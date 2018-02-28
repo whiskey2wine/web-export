@@ -1,0 +1,51 @@
+{
+  "name": "20180227_scg_web-export",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && jest",
+    "test-watch": "export NODE_ENV=test || SET \"NODE_ENV=test\" && jest --watch",
+    "test-watchAll": "export NODE_ENV=test || SET \"NODE_ENV=test\" && jest --watchAll",
+    "flow-start": "flow start",
+    "flow-stop": "flow stop",
+    "flow-status": "flow status",
+    "flow-coverage": "flow coverage"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "author": "Jayakorn Karikan",
+  "license": "ISC",
+  "devDependencies": {
+    "airbnb-browser-shims": "^2.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-preset-airbnb": "^2.4.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "flow-bin": "^0.66.0",
+    "jest": "^22.4.0",
+    "nodemon": "^1.15.1",
+    "prettier-eslint": "^8.8.1",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "handlebars": "^4.0.11",
+    "hbs": "^4.0.1",
+    "moment": "^2.20.1",
+    "mssql": "^4.1.0",
+    "socket.io": "^2.0.4"
+  },
+  "jest": {
+    "verbose": true
+  },
+  "": "https://hackernoon.com/configure-eslint-prettier-and-flow-in-vs-code-for-react-development-c9d95db07213"
+}

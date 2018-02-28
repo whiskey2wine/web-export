@@ -1,0 +1,42 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb-base",
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+    "mocha": true,
+    "jest": true,
+    "mongo": true,
+    "jquery": true
+  },
+  "rules": {
+    "comma-dangle": "warn",
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "local",
+        "args": "none"
+      }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "VariableDeclarator": {
+          "array": true,
+          "object": false
+        }
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-console": "off",
+    "consistent-return": "off",
+    "func-names": "off",
+    "no-underscore-dangle": "off"
+  }
+}
