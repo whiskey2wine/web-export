@@ -1,76 +1,64 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // const xhr = new XMLHttpRequest();
-  // console.log(xhr);
-  // xhr.open('GET', 'http://localhost:3000/getdata', true);
-  // xhr.onload = function () {
-  //   if (this.status === 200) {
-  //     const res = JSON.parse(this.response);
-  //     const el = document.getElementById('pino');
-  //     res.forEach((obj, index) => {
-  //       const option = document.createElement('option');
-  //       option.text = obj.PINo;
-  //       option.value = obj.PINo;
-  //       el.add(option);
-  //     });
-  //   } else {
-  //     console.log('Fail');
-  //     console.log(this);
-  //   }
-  // };
-  // xhr.send();
-  fetch('http://localhost:3000/getdata')
-    .then(res => res.json())
-    .then((data) => {
-      let output;
-      data.forEach((pi) => {
-        output += `<option value="${pi.PINo}">${pi.PINo}</option>`;
-      });
-      document.getElementById('pino').innerHTML = output;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+fetch('http://localhost:3000/getdata')
+  .then(res => res.json())
+  .then((data) => {
+    console.log(data);
+    let output;
 
-const ctx = document.getElementById('myChart');
-const myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['PM1,3', 'PM16', 'PM17', 'PM4-5', 'PM6-7', 'PM8-9'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-    },
-  },
-});
+    let bp13 = 0;
+    let bp16 = 0;
+    let ws45 = 0;
+    let ws67 = 0;
+    let wsIBB = 0;
+
+    data.forEach((pi, i) => {
+      output += `<option value="${pi.PINo}">${pi.PINo}</option>`;
+      bp13 +=
+        pi.bp13 +
+        pi.mx1316 +
+        pi.mx1345 +
+        pi.mx1367 +
+        pi.mx131645 +
+        pi.mx131667 +
+        pi.mx134567 +
+        pi.mx13164567;
+      bp16 +=
+        pi.bp16 +
+        pi.mx1316 +
+        pi.mx1645 +
+        pi.mx1667 +
+        pi.mx131645 +
+        pi.mx131667 +
+        // pi.mx164567 +
+        pi.mx13164567;
+      ws45 +=
+        pi.ws45 +
+        pi.mx1345 +
+        pi.mx1645 +
+        // pi.mx4567 +
+        pi.mx131645 +
+        pi.mx134567 +
+        // pi.mx164567 +
+        pi.mx13164567;
+      ws67 +=
+        pi.ws67 +
+        pi.mx1367 +
+        pi.mx1667 +
+        // pi.mx4567 +
+        pi.mx131667 +
+        pi.mx134567 +
+        // pi.mx164567 +
+        pi.mx13164567;
+      wsIBB += pi.wsIBB;
+    });
+    const obj = {
+      init: [bp13, bp16, 0, ws45, ws67, 0, wsIBB],
+      booked: [3, 2, 0, 1, 2, 0, 1],
+      process: [2, 1, 0, 1, 1, 0, 1],
+      completed: [4, 2, 0, 1, 1, 0, 1],
+    };
+    createChart('myChart', obj);
+    document.getElementById('pino').innerHTML = output;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
