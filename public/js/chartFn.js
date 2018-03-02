@@ -70,7 +70,7 @@ const createChart = (id, data) => {
       tooltips: {
         callbacks: {
           title: (tooltipItems, chart) => {
-            const tooltipItem = tooltipItems[0];
+            const [tooltipItem] = tooltipItems;
             if (tooltipItem.index === 0) {
               return `${chart.labels[tooltipItem.index]} | Total: ${data.init[0]}`;
             } else if (tooltipItem.index === 1) {

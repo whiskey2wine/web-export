@@ -11,32 +11,23 @@
     "jquery": true
   },
   "rules": {
-    "comma-dangle": "warn",
+    "comma-dangle": 1,
     "no-unused-vars": [
-      "error",
+      1,
       {
         "vars": "local",
         "args": "none"
       }
     ],
-    "prefer-destructuring": [
-      "error",
-      {
-        "VariableDeclarator": {
-          "array": true,
-          "object": false
-        }
-      }
-    ],
     "no-param-reassign": [
-      "error",
+      2,
       {
         "props": false
       }
     ],
-    "no-console": "off",
-    "consistent-return": "off",
-    "func-names": "off",
-    "no-underscore-dangle": "off"
+    "no-console": 0,
+    "consistent-return": 0,
+    "func-names": 0,
+    "no-underscore-dangle": 0
   }
 }

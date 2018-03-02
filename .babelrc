@@ -1,4 +1,3 @@
 {
-  "presets": ["flow"],
-  "retainLines": true
+  "presets": ["airbnb"]
 }
