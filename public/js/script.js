@@ -1,3 +1,6 @@
+$(document).ready(() => {
+  $('select').material_select();
+});
 const socket = io();
 socket.on('connect', () => {
   console.log('Connected to server.');
@@ -142,7 +145,6 @@ fetch('http://localhost:3000/getdata')
 document.getElementById('pm').addEventListener('change', (e) => {
   const piList = document.getElementById('pino');
   piList.disabled = false;
-
   let piOption = '<option value="">Select PI</option>';
   if (pmList[e.target.value] !== undefined) {
     pmList[e.target.value].forEach((el) => {
@@ -153,4 +155,22 @@ document.getElementById('pm').addEventListener('change', (e) => {
   }
 
   piList.innerHTML = piOption;
+  $('select').material_select();
+});
+
+$('#pm').on('change', (e) => {
+  const $piList = $('#pino');
+  $piList.prop('disabled', false);
+
+  let piOption = '<option value="" disabled selected>Select PI</option>';
+  if (pmList[e.target.value] !== undefined) {
+    pmList[e.target.value].forEach((el) => {
+      piOption += `<option value="${el}">${el}</option>`;
+    });
+  } else {
+    $piList.prop('disabled', true);
+  }
+
+  $piList.html(piOption);
+  $('select').material_select();
 });

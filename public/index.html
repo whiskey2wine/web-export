@@ -6,33 +6,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./css/libs/materialize.min.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-  <div style="width: 700px;">
-    <canvas id="myChart"></canvas>
-  </div>
-  <div id="update">
-    <select id="pm">
-      <option value="">Select PM</option>
-      <option value="pm13">PM1,3</option>
-      <option value="pm16">PM16</option>
-      <option value="pm17">PM17</option>
-      <option value="pm45">PM4-5</option>
-      <option value="pm67">PM6-7</option>
-      <option value="pm89">PM8-9</option>
-      <option value="ibb">IBB</option>
-    </select>
-    <select id="pino" disabled>
-      <option value="">Select PI</option>
-    </select>
-  </div>
+  <div class="container">
+    <div class="chart card">
+      <div class="card-content">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="./js/libs/moment.js"></script>
-  <script src="./js/libs/Chart.js"></script>
-  <script src="./js/chartFn.js"></script>
-  <script src="./js/script.js"></script>
+    <div id="update" class="card">
+      <div class="card-content row">
+        <div class="col s12 m4">
+          <div class="input-field">
+            <select id="pm">
+              <option value="" disabled selected>Select PM</option>
+              <option value="pm13">PM1,3</option>
+              <option value="pm16">PM16</option>
+              <option value="pm17">PM17</option>
+              <option value="pm45">PM4-5</option>
+              <option value="pm67">PM6-7</option>
+              <option value="pm89">PM8-9</option>
+              <option value="ibb">IBB</option>
+            </select>
+            <label>Select Location</label>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="row">
+            <div class="input-field col s12 m4">
+              <select id="pino" disabled>
+                <option value="">Select PI</option>
+              </select>
+              <label for="pino">Select PI No.</label>
+            </div>
+            <div class="col s12 m8">
+              <div class="input-field col s12 m3">
+                <input id="booked" type="number">
+                <label for="booked">Booked</label>
+              </div>
+              <div class="input-field col s12 m3">
+                <input id="on-process" type="number">
+                <label for="on-process">On Process</label>
+              </div>
+              <div class="input-field col s12 m3">
+                <input id="completed" type="number">
+                <label for="completed">Completed</label>
+              </div>
+            </div>
+          </div>
+          <div class="input-field">
+            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <label for="textarea1">Comment</label>
+          </div>
+        </div>
+        <div class="col s12 center-align">
+          <a class="waves-effect waves-light btn blue accent-4">Submit</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/libs/jquery-3.3.1.min.js"></script>
+    <script src="./js/libs/materialize.min.js"></script>
+    <script src="./js/libs/moment.js"></script>
+    <script src="./js/libs/Chart.js"></script>
+    <script src="./js/chartFn.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

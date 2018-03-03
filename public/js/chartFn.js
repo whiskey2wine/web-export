@@ -1,6 +1,7 @@
 const createChart = (id, data) => {
   console.log(Chart.defaults);
   console.log(data);
+  Chart.defaults.global.defaultFontFamily = "'Roboto', 'Helvetica', 'Arial', sans-serif";
   Chart.defaults.scale.ticks.beginAtZero = true;
   // Chart.defaults.global = {
   //   tooltipTemplate: '<%if (label){%><%=label%>: <%}%><%= value %>',
@@ -61,7 +62,7 @@ const createChart = (id, data) => {
             data.init[5] - (data.booked[5] + data.process[5] + data.completed[5]),
             data.init[6] - (data.booked[6] + data.process[6] + data.completed[6]),
           ],
-          backgroundColor: '#FF6384',
+          backgroundColor: '#FF4C52',
         },
       ],
     },
