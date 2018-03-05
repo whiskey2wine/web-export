@@ -14,6 +14,8 @@ const pmList = {
   pm89: [],
   ibb: [],
 };
+
+const $pmListElement = $('#pm');
 fetch('http://localhost:3000/getdata')
   .then(res => res.json())
   .then((data) => {
@@ -129,6 +131,11 @@ fetch('http://localhost:3000/getdata')
         ws89 += pi.ws89 + pi.mx1789;
       }
     });
+
+    if (bp13 !== 0) {
+      $piList.prop('disabled', false);
+    }
+
     console.log(pmList);
     const obj = {
       init: [bp13, bp16, bp17, ws45, ws67, ws89, wsIBB],
@@ -142,27 +149,33 @@ fetch('http://localhost:3000/getdata')
     console.log(err);
   });
 
-document.getElementById('pm').addEventListener('change', (e) => {
-  const piList = document.getElementById('pino');
-  piList.disabled = false;
-  let piOption = '<option value="">Select PI</option>';
-  if (pmList[e.target.value] !== undefined) {
-    pmList[e.target.value].forEach((el) => {
-      piOption += `<option value="${el}">${el}</option>`;
-    });
+// document.getElementById('pm').addEventListener('change', (e) => {
+//   const piList = document.getElementById('pino');
+//   piList.disabled = false;
+//   let piOption = '<option value="">Select PI</option>';
+//   if (pmList[e.target.value] !== undefined) {
+//     pmList[e.target.value].forEach((el) => {
+//       piOption += `<option value="${el}">${el}</option>`;
+//     });
+//   } else {
+//     piList.disabled = true;
+//   }
+
+//   piList.innerHTML = piOption;
+//   $('select').material_select();
+// });
+
+$pmListElement.on('change', (e) => {
+  const $piList = $('#pino');
+  let piOption;
+  if (pmList[e.target.value].length > 0) {
+    $piList.prop('disabled', false);
+    piOption = '<option value="" disabled selected>Select PI</option>';
   } else {
-    piList.disabled = true;
+    $piList.prop('disabled', true);
+    piOption = '<option value="" disabled selected>No PI Available</option>';
   }
 
-  piList.innerHTML = piOption;
-  $('select').material_select();
-});
-
-$('#pm').on('change', (e) => {
-  const $piList = $('#pino');
-  $piList.prop('disabled', false);
-
-  let piOption = '<option value="" disabled selected>Select PI</option>';
   if (pmList[e.target.value] !== undefined) {
     pmList[e.target.value].forEach((el) => {
       piOption += `<option value="${el}">${el}</option>`;

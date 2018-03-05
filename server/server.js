@@ -40,12 +40,6 @@ app.get('/', (req, res) => {
   res.render('index.html');
 });
 
-const yesterday = moment()
-  .subtract(1, 'days')
-  .format('YYYY-MM-DD');
-// .toISOString();
-console.log(yesterday);
-
 const kraft = `
   select * from [Export_ConfirmLocation_Kraft] 
   where [posting_date] = dateadd(day,datediff(day,1,GETDATE()),0);
