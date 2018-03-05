@@ -14,12 +14,15 @@ const pmList = {
   pm89: [],
   ibb: [],
 };
-
+let fetchData;
+const $piList = $('#pino');
 const $pmListElement = $('#pm');
+
 fetch('http://localhost:3000/getdata')
   .then(res => res.json())
   .then((data) => {
-    console.log(data);
+    console.log('data', data);
+    fetchData = data;
 
     let bp13 = 0;
     let bp16 = 0;
@@ -132,11 +135,9 @@ fetch('http://localhost:3000/getdata')
       }
     });
 
-    if (bp13 !== 0) {
-      $piList.prop('disabled', false);
-    }
+    // -----------------------------
 
-    console.log(pmList);
+    console.log('pmList', pmList);
     const obj = {
       init: [bp13, bp16, bp17, ws45, ws67, ws89, wsIBB],
       booked: [3, 2, 0, 1, 2, 0, 1],
@@ -144,29 +145,19 @@ fetch('http://localhost:3000/getdata')
       completed: [4, 2, 0, 1, 1, 0, 1],
     };
     createChart('myChart', obj);
+
+    obj.init.map((val, i) => {
+      if (val > 0) {
+        $pmListElement.children()[i + 1].disabled = false;
+      }
+      return true;
+    });
   })
   .catch((err) => {
     console.log(err);
   });
 
-// document.getElementById('pm').addEventListener('change', (e) => {
-//   const piList = document.getElementById('pino');
-//   piList.disabled = false;
-//   let piOption = '<option value="">Select PI</option>';
-//   if (pmList[e.target.value] !== undefined) {
-//     pmList[e.target.value].forEach((el) => {
-//       piOption += `<option value="${el}">${el}</option>`;
-//     });
-//   } else {
-//     piList.disabled = true;
-//   }
-
-//   piList.innerHTML = piOption;
-//   $('select').material_select();
-// });
-
 $pmListElement.on('change', (e) => {
-  const $piList = $('#pino');
   let piOption;
   if (pmList[e.target.value].length > 0) {
     $piList.prop('disabled', false);
@@ -186,4 +177,12 @@ $pmListElement.on('change', (e) => {
 
   $piList.html(piOption);
   $('select').material_select();
+});
+
+$piList.on('change', (e) => {
+  console.log(e.target.value);
+  const found = fetchData.find(val =>
+    // continue here trying to return selected pi value
+    val.PINo === e.target.value);
+  console.log(found);
 });

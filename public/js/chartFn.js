@@ -1,6 +1,6 @@
 const createChart = (id, data) => {
-  console.log(Chart.defaults);
-  console.log(data);
+  // console.log(Chart.defaults);
+  // console.log(data);
   Chart.defaults.global.defaultFontFamily = "'Roboto', 'Helvetica', 'Arial', sans-serif";
   Chart.defaults.scale.ticks.beginAtZero = true;
   // Chart.defaults.global = {
