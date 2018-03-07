@@ -18,6 +18,14 @@ let fetchData;
 const $piList = $('#pino');
 const $pmListElement = $('#pm');
 
+$('textarea.editor').ckeditor();
+
+let editor;
+CKEDITOR.on('instanceReady', (ev) => {
+  editor = ev.editor;
+  editor.setReadOnly(true);
+});
+
 fetch('http://localhost:3000/getdata')
   .then(res => res.json())
   .then((data) => {
@@ -146,9 +154,11 @@ fetch('http://localhost:3000/getdata')
     };
     createChart('myChart', obj);
 
+    // Enable PM option that contains PI
     obj.init.map((val, i) => {
       if (val > 0) {
         $pmListElement.children()[i + 1].disabled = false;
+        $('select').material_select();
       }
       return true;
     });
@@ -157,14 +167,15 @@ fetch('http://localhost:3000/getdata')
     console.log(err);
   });
 
+// Insert PI when PM option has been selected
 $pmListElement.on('change', (e) => {
   let piOption;
+  $('textarea.editor').val('');
+  editor.setReadOnly(true);
+
   if (pmList[e.target.value].length > 0) {
     $piList.prop('disabled', false);
     piOption = '<option value="" disabled selected>Select PI</option>';
-  } else {
-    $piList.prop('disabled', true);
-    piOption = '<option value="" disabled selected>No PI Available</option>';
   }
 
   if (pmList[e.target.value] !== undefined) {
@@ -179,10 +190,24 @@ $pmListElement.on('change', (e) => {
   $('select').material_select();
 });
 
+let selectedObj = {};
+// Display comment when PI has been selected and enable textarea
 $piList.on('change', (e) => {
-  console.log(e.target.value);
-  const found = fetchData.find(val =>
-    // continue here trying to return selected pi value
-    val.PINo === e.target.value);
-  console.log(found);
+  const found = fetchData.find(val => val.PINo === e.target.value);
+  selectedObj = {
+    selected: found,
+  };
+  console.log(selectedObj);
+  $('textarea.editor').val(found.remarks);
+  editor.setReadOnly(false);
+});
+
+$(document).on('click', '#submitBtn', (e) => {
+  selectedObj = {
+    booked: $('#booked').val(),
+    on_process: $('#on-process').val(),
+    completed: $('#completed').val(),
+    comment: editor.getData(),
+  };
+  console.log(selectedObj);
 });

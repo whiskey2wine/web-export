@@ -60,13 +60,13 @@
               </div>
             </div>
           </div>
-          <div class="input-field">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">Comment</label>
-          </div>
+          <!-- <div class="input-field"> -->
+          <textarea id="comment-box" class="editor"></textarea>
+          <!-- <label class="active" id="comment-box-label" for="comment-box">Comment</label> -->
+          <!-- </div> -->
         </div>
-        <div class="col s12 center-align">
-          <a class="waves-effect waves-light btn blue accent-4">Submit</a>
+        <div class="col s12 center-align" style="margin-top: 20px;">
+          <a class="waves-effect waves-light btn blue accent-4" id="submitBtn">Submit</a>
         </div>
       </div>
     </div>
@@ -76,6 +76,8 @@
     <script src="./js/libs/materialize.min.js"></script>
     <script src="./js/libs/moment.js"></script>
     <script src="./js/libs/Chart.js"></script>
+    <script src="./js/libs/ckeditor/ckeditor.js"></script>
+    <script src="./js/libs/ckeditor/adapters/jquery.js"></script>
     <script src="./js/chartFn.js"></script>
     <script src="./js/script.js"></script>
 </body>
