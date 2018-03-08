@@ -182,8 +182,6 @@ $pmListElement.on('change', (e) => {
     pmList[e.target.value].forEach((el) => {
       piOption += `<option value="${el}">${el}</option>`;
     });
-  } else {
-    $piList.prop('disabled', true);
   }
 
   $piList.html(piOption);
@@ -193,21 +191,23 @@ $pmListElement.on('change', (e) => {
 let selectedObj = {};
 // Display comment when PI has been selected and enable textarea
 $piList.on('change', (e) => {
+  editor.setReadOnly(false);
+  $('#submitBtn').prop('disabled', false);
   const found = fetchData.find(val => val.PINo === e.target.value);
   selectedObj = {
     selected: found,
   };
   console.log(selectedObj);
   $('textarea.editor').val(found.remarks);
-  editor.setReadOnly(false);
 });
 
 $(document).on('click', '#submitBtn', (e) => {
-  selectedObj = {
-    booked: $('#booked').val(),
-    on_process: $('#on-process').val(),
-    completed: $('#completed').val(),
-    comment: editor.getData(),
-  };
+  const booked = parseInt($('#booked').val(), 10);
+  const onProcess = parseInt($('#on-process').val(), 10);
+  const completed = parseInt($('#completed').val(), 10);
+  selectedObj.booked = booked > 0 ? booked : undefined;
+  selectedObj.on_process = onProcess > 0 ? onProcess : undefined;
+  selectedObj.completed = completed > 0 ? completed : undefined;
+  selectedObj.comment = editor.getData();
   console.log(selectedObj);
 });
